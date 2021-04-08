@@ -4,7 +4,6 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY requirements.txt /app
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         openssh-server \
@@ -18,11 +17,14 @@ RUN apt-get update \
     && pip install virtualenv \
     && pip install flask
     
+COPY . /app
+ 
 RUN export PYTHONPATH=/usr/bin/python \
  && pip install -r requirements.txt
 
-COPY . /app
+COPY . ,
 
-EXPOSE 8080
+EXPOSE 5000
 
-CMD ["python", "runserver.py", "db.py", "test.py"]
+ENV FLASK_APP=runserver:app
+CMD ["flask", "run", "--host", "0.0.0.0"]
