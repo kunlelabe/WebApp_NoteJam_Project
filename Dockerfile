@@ -20,7 +20,8 @@ RUN apt-get update \
 COPY . /app
  
 RUN export PYTHONPATH=/usr/bin/python \
- && pip install -r requirements.txt
+ python -m pip install flake8
+ if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
 COPY . ,
 
