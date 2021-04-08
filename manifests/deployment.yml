@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: notejambuildv1 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notejambuildv1
+  template:
+    metadata:
+      labels:
+        app: notejambuildv1 
+    spec:
+      containers:
+        - name: notejambuildv1 
+          image: cventive.azurecr.io/notejambuildv1
+          ports:
+          - containerPort: 8080
